@@ -24,7 +24,7 @@ export function initChart(iframe) {
     d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_salud_2_4/main/data/edv_buena_salud_65.csv', function(error,data) {
         if (error) throw error;
 
-        let margin = {top: 10, right: 10, bottom: 80, left: 30},
+        let margin = {top: 10, right: 10, bottom: 20, left: 20},
             width = document.getElementById('chart').clientWidth - margin.left - margin.right,
             height = document.getElementById('chart').clientHeight - margin.top - margin.bottom;
 
@@ -52,7 +52,7 @@ export function initChart(iframe) {
             .call(xAxis);
 
         let y = d3.scaleLinear()
-            .domain([0, 25])
+            .domain([0, 100])
             .range([ height, 0 ]);
         svg.append("g")
             .call(d3.axisLeft(y));
@@ -67,7 +67,26 @@ export function initChart(iframe) {
             .range([COLOR_PRIMARY_1, COLOR_COMP_1]);
 
         function init() {
-
+            svg.append("g")
+                .selectAll("g")
+                .data(data)
+                .enter()
+                .append("g")
+                .attr("transform", function(d) { return "translate(" + x(d.periodo) + ",0)"; })
+                .selectAll("rect")
+                .data(function(d) { return tipos.map(function(key) { return {key: key, value: d['porc_buena_salud_eurostat']}; }); })
+                .enter()
+                .append("rect")
+                .attr('class', 'prueba')
+                .attr("x", function(d) { return xSubgroup(d.key); })
+                .attr("width", xSubgroup.bandwidth())
+                .attr("fill", function(d) { return color(d.key); })
+                .attr("y", function(d) { return y(0); })                
+                .attr("height", function(d) { return height - y(0); })
+                .transition()
+                .duration(2000)
+                .attr("y", function(d) { console.log(d); return y(d.value); })                
+                .attr("height", function(d) { return height - y(d.value); });
         }
 
         function animateChart() {
