@@ -24,7 +24,7 @@ export function initChart(iframe) {
     d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_salud_2_4/main/data/edv_buena_salud_65.csv', function(error,data) {
         if (error) throw error;
 
-        let margin = {top: 10, right: 10, bottom: 20, left: 20},
+        let margin = {top: 10, right: 10, bottom: 20, left: 30},
             width = document.getElementById('chart').clientWidth - margin.left - margin.right,
             height = document.getElementById('chart').clientHeight - margin.top - margin.bottom;
 
@@ -36,7 +36,7 @@ export function initChart(iframe) {
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
         let anios = d3.map(data, function(d){return(d.periodo)}).keys();
-        let tipos = ['Hombres', 'Mujeres'];
+        let tipos = ['hombres_porc', 'mujeres_porc'];
         
         let x = d3.scaleBand()
             .domain(anios)
@@ -74,7 +74,7 @@ export function initChart(iframe) {
                 .append("g")
                 .attr("transform", function(d) { return "translate(" + x(d.periodo) + ",0)"; })
                 .selectAll("rect")
-                .data(function(d) { return tipos.map(function(key) { return {key: key, value: d['porc_buena_salud_eurostat']}; }); })
+                .data(function(d) { return tipos.map(function(key) { return {key: key, value: d[key]}; }); })
                 .enter()
                 .append("rect")
                 .attr('class', 'prueba')
@@ -85,12 +85,21 @@ export function initChart(iframe) {
                 .attr("height", function(d) { return height - y(0); })
                 .transition()
                 .duration(2000)
-                .attr("y", function(d) { console.log(d); return y(d.value); })                
+                .attr("y", function(d) { return y(d.value); })                
                 .attr("height", function(d) { return height - y(d.value); });
         }
 
         function animateChart() {
-
+            svg.selectAll(".prueba")
+                .attr("x", function(d) { return xSubgroup(d.key); })
+                .attr("width", xSubgroup.bandwidth())
+                .attr("fill", function(d) { return color(d.key); })
+                .attr("y", function(d) { return y(0); })                
+                .attr("height", function(d) { return height - y(0); })
+                .transition()
+                .duration(2000)
+                .attr("y", function(d) { return y(d.value); })                
+                .attr("height", function(d) { return height - y(d.value); });
         }
 
         //////
@@ -114,13 +123,15 @@ export function initChart(iframe) {
         setRRSSLinks('evolucion_edv_saludable');
 
         //Captura de pantalla de la visualización
-        setChartCanvas();
-        setCustomCanvas();
+        //setChartCanvas();
+        setTimeout(() => {
+            setCustomCanvas();
+        }, 6000);        
 
         let pngDownload = document.getElementById('pngImage');
 
         pngDownload.addEventListener('click', function(){
-            setChartCanvasImage('evolucion_edv_saludable');
+            //setChartCanvasImage('evolucion_edv_saludable');
             setChartCustomCanvasImage('evolucion_edv_saludable');
         });
 
