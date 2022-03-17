@@ -23,7 +23,56 @@ export function initChart(iframe) {
     //Lectura de datos
     d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_salud_2_4/main/data/edv_buena_salud_65.csv', function(error,data) {
         if (error) throw error;
-        console.log(data);
+
+        let margin = {top: 10, right: 10, bottom: 80, left: 30},
+            width = document.getElementById('chart').clientWidth - margin.left - margin.right,
+            height = document.getElementById('chart').clientHeight - margin.top - margin.bottom;
+
+        let svg = d3.select("#chart")
+            .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        let anios = d3.map(data, function(d){return(d.periodo)}).keys();
+        let tipos = ['Hombres', 'Mujeres'];
+        
+        let x = d3.scaleBand()
+            .domain(anios)
+            .range([0, width])
+            .padding([0.35]);
+
+        let xAxis = function(g) {
+            g.call(d3.axisBottom(x));
+        }
+
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        let y = d3.scaleLinear()
+            .domain([0, 25])
+            .range([ height, 0 ]);
+        svg.append("g")
+            .call(d3.axisLeft(y));
+
+        let xSubgroup = d3.scaleBand()
+            .domain(tipos)
+            .range([0, x.bandwidth()])
+            .padding([0]);
+
+        let color = d3.scaleOrdinal()
+            .domain(tipos)
+            .range([COLOR_PRIMARY_1, COLOR_COMP_1]);
+
+        function init() {
+
+        }
+
+        function animateChart() {
+
+        }
 
         //////
         ///// Resto - Chart
