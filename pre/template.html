@@ -18,7 +18,7 @@
             <section class="content b-chart active" id="chartBlock">
                 <div class="b-title">
                     <h1 class="title">Figura 2.4. Evolución de la esperanza de vida saludable a los 65 años respecto al total de esperanza de vida en España por sexo, 2004-2019</h1>
-                    <h2 class="subtitle">Gráfico 15/2022. Datos en porcentajes</h2>
+                    <h2 class="subtitle">Gráfico 15/2022</h2>
                 </div>
                 <div class="chart__logics">
                     <div class="chart__legend">
@@ -32,14 +32,18 @@
                         </button>
                     </div>                  
                 </div>
-                <div class="chart__viz" id="chart"></div>
+                <div class="chart__viz">
+                    <p class="text__yaxis">Porcentaje</p>
+                    <div class="chart" id="chart"></div>
+                    <p class="text__xaxis">Años</p>
+                </div>
                 <!-- Pie de gráfico -->
                 <div class="chart__footer">
                     <div class="chart__source">
-                        <p class="chart__source--data"><span>Fuente: </span><span id="data-source">Eurostat (Encuesta de Condiciones de Vida, SILC)</span> y Laboratorio de Estadísticas Experimentales (CSIC)</p>
+                        <p class="chart__source--data"><span>Fuente: </span><span>Eurostat (Encuesta de Condiciones de Vida, SILC; consulta en febrero de 2022)</span> y Laboratorio de Estadísticas Experimentales (CSIC)</p>
                         <p class="chart__source--copyright"><a class="link" href="https://creativecommons.org/licenses/by/4.0/deed.en_US" target="_blank">CC BY 4.0</a></p>
                     </div>
-                    <p class="chart__note"><span>Notas: </span><span id="data-note">En 2008 hay ruptura metodológica.</span></p>
+                    <p class="chart__note"><span>Notas: </span><span>En 2008 hay ruptura metodológica.</span></p>
                 </div>
                 <div class="logo">
                     <img src="https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_salud_2_4/main/pre/iegd_logo.png" alt="Logo del Instituto de Economía, Geografía y Demografía (IEGD) del CSIC" width="100%" height="100%">
@@ -91,10 +95,7 @@
                 <li class="tab tab--rrss" data-target="b-rrss"><i class="fa fa--share fa-share-alt"></i></li>
             </ul>
         </nav>
-        <div class="chart__tooltip" id="tooltip">
-            <p class="chart__tooltip--title"></p>
-            <p class="chart__tooltip--text"></p>
-        </div>  
+        <div class="chart__tooltip" id="tooltip"></div>  
     </div>
     <!-- Uso de PYMJS para alturas dinámicas -->
     <script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
