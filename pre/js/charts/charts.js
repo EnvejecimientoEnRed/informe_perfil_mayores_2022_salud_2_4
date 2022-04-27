@@ -12,7 +12,7 @@ const COLOR_PRIMARY_1 = '#F8B05C',
 COLOR_COMP_1 = '#528FAD';
 let tooltip = d3.select('#tooltip');
 
-export function initChart(iframe) {
+export function initChart() {
     //Lectura de datos
     d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_salud_2_4/main/data/edv_buena_salud_65.csv', function(error,data) {
         if (error) throw error;
@@ -34,7 +34,7 @@ export function initChart(iframe) {
         let x = d3.scaleBand()
             .domain(anios)
             .range([0, width])
-            .padding([0.35]);
+            .padding(0.35);
 
         let xAxis = function(svg) {
             svg.call(d3.axisBottom(x).tickValues(x.domain().filter(function(d,i){ if(i == 0 || i == 5 || i == 10 || i == 15 || i == 20 || i == data.length - 1){ return d; } })));
@@ -116,7 +116,6 @@ export function initChart(iframe) {
 
                     //Tooltip > Recuperamos el año de referencia
                     let currentYear = this.parentNode.classList[0];
-                    console.log(d, currentYear);
 
                     let html = '<p class="chart__tooltip--title">' + currentYear.split('-')[1] + '</p>' + 
                             '<p class="chart__tooltip--text">El porcentaje de esperanza de vida en buena salud respecto al total de su esperanza de vida para <b>' + d.key.split('_')[0] + '</b> es del <b>' + numberWithCommas3(parseFloat(d.value).toFixed(1)) + ' %</b></p>';
@@ -165,6 +164,10 @@ export function initChart(iframe) {
         //Animación del gráfico
         document.getElementById('replay').addEventListener('click', function() {
             animateChart();
+
+            setTimeout(() => {
+                setChartCanvas(); 
+            }, 4000);
         });
 
         //////
@@ -178,7 +181,9 @@ export function initChart(iframe) {
         setRRSSLinks('evolucion_edv_saludable');
 
         //Captura de pantalla de la visualización
-        setChartCanvas();      
+        setTimeout(() => {
+            setChartCanvas(); 
+        }, 4000);     
 
         let pngDownload = document.getElementById('pngImage');
 
@@ -187,7 +192,7 @@ export function initChart(iframe) {
         });
 
         //Altura del frame
-        setChartHeight(iframe);
+        setChartHeight();
     });
 
     
