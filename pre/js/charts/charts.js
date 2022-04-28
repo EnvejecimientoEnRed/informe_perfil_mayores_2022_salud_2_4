@@ -17,7 +17,7 @@ export function initChart() {
     d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_salud_2_4/main/data/edv_buena_salud_65.csv', function(error,data) {
         if (error) throw error;
 
-        let margin = {top: 10, right: 10, bottom: 20, left: 25},
+        let margin = {top: 12.5, right: 10, bottom: 25, left: 25},
             width = document.getElementById('chart').clientWidth - margin.left - margin.right,
             height = document.getElementById('chart').clientHeight - margin.top - margin.bottom;
 
