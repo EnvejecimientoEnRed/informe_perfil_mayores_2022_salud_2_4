@@ -470,17 +470,7 @@ button {
             &__options {
                 justify-content: center;
             }
-        }
-    }
 
-    .b-rrss {
-        width: 80%;
-    }
-}
-
-@media screen and (max-width: 375px) {
-    .b-chart {
-        .chart {
             &__logics {
                 flex-direction: column;
             }
@@ -489,5 +479,9 @@ button {
                 width: 100%;
             }
         }
+    }
+
+    .b-rrss {
+        width: 80%;
     }
 }
