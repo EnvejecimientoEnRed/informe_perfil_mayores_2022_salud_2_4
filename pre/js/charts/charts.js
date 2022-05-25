@@ -14,7 +14,7 @@ let tooltip = d3.select('#tooltip');
 
 export function initChart() {
     //Lectura de datos
-    d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_salud_2_4/main/data/edv_buena_salud_65.csv', function(error,data) {
+    d3.csv('https://raw.githubusercontent.com/EnvejecimientoEnRed/informe_perfil_mayores_2022_salud_2_4/main/data/edv_buena_salud_65.csv', function(error,data) {
         if (error) throw error;
 
         //Gráfico sencillo de barras apiladas
